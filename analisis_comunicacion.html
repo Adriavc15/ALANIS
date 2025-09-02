@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis de Contenidos Comunicacionales</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+        }
+        .container {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 30px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        .table {
+            margin: 20px 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+        }
+        .table th {
+            background-color: #2c3e50;
+            color: white;
+        }
+        .chart-container {
+            margin: 30px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        /* Estilos para tooltips de fórmulas */
+        .formula-tooltip {
+            position: absolute;
+            background-color: #2c3e50;
+            color: white;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            z-index: 1000;
+            max-width: 300px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            pointer-events: none;
+            display: none;
+        }
+        
+        .formula-cell {
+            cursor: help;
+            position: relative;
+            transition: background-color 0.2s;
+        }
+        
+        .formula-cell:hover {
+            background-color: #f0f7ff !important;
+        }
+        
+        .interpretation {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 4px 4px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center mb-4">Análisis de Contenidos Comunicacionales</h1>
+        <p class="lead">Análisis descriptivo de 50 piezas comunicativas</p>
+        
+        <!-- Sección 1: Variables Cualitativas -->
+        <h2>1. Análisis de Variables Cualitativas</h2>
+        
+        <!-- 1.1 Tipo de Medio -->
+        <h3>1.1 Tipo de Medio</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Tipo de Medio</th>
+                        <th>Frecuencia Absoluta</th>
+                        <th>Frecuencia Relativa</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Televisión</td>
+                        <td data-formula="=CONTAR.SI(rango_tipos_medio, \"Televisión\")">15</td>
+                        <td data-formula="=15/50 (Frecuencia Absoluta / Total de casos)">0.30</td>
+                        <td data-formula="=0.30*100 (Frecuencia Relativa * 100)">30%</td>
+                    </tr>
+                    <tr>
+                        <td>Radio</td>
+                        <td data-formula="=CONTAR.SI(rango_tipos_medio, \"Radio\")">10</td>
+                        <td data-formula="=10/50 (Frecuencia Absoluta / Total de casos)">0.20</td>
+                        <td data-formula="=0.20*100 (Frecuencia Relativa * 100)">20%</td>
+                    </tr>
+                    <tr>
+                        <td>Redes Sociales</td>
+                        <td data-formula="=CONTAR.SI(rango_tipos_medio, \"Redes Sociales\")">15</td>
+                        <td data-formula="=15/50 (Frecuencia Absoluta / Total de casos)">0.30</td>
+                        <td data-formula="=0.30*100 (Frecuencia Relativa * 100)">30%</td>
+                    </tr>
+                    <tr>
+                        <td>Prensa Escrita</td>
+                        <td data-formula="=CONTAR.SI(rango_tipos_medio, \"Prensa Escrita\")">10</td>
+                        <td data-formula="=10/50 (Frecuencia Absoluta / Total de casos)">0.20</td>
+                        <td data-formula="=0.20*100 (Frecuencia Relativa * 100)">20%</td>
+                    </tr>
+                    <tr class="table-secondary fw-bold">
+                        <td>Total</td>
+                        <td data-formula="=SUMA(B5:B8) (Suma de frecuencias absolutas)">50</td>
+                        <td data-formula="=SUMA(C5:C8) (Suma de frecuencias relativas)">1.00</td>
+                        <td data-formula="=SUMA(D5:D8) (Suma de porcentajes)">100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Gráfico de Tipo de Medio -->
+        <div class="chart-container">
+            <canvas id="tipoMedioChart"></canvas>
+        </div>
+        
+        <div class="interpretation">
+            <h5>Interpretación:</h5>
+            <p>La distribución de los tipos de medios muestra que las Redes Sociales y la Televisión son los canales más utilizados, cada uno con un 30% de las piezas analizadas. La Radio y la Prensa Escrita tienen una representación menor, con un 20% cada una.</p>
+        </div>
+        
+        <!-- 1.2 Género del Contenido -->
+        <h3>1.2 Género del Contenido</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Género</th>
+                        <th>Frecuencia Absoluta</th>
+                        <th>Frecuencia Relativa</th>
+                        <th>Porcentaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Noticias</td>
+                        <td data-formula="=CONTAR.SI(rango_generos, \"Noticias\")">15</td>
+                        <td data-formula="=15/50 (Frecuencia Absoluta / Total de casos)">0.30</td>
+                        <td data-formula="=0.30*100 (Frecuencia Relativa * 100)">30%</td>
+                    </tr>
+                    <tr>
+                        <td>Entretenimiento</td>
+                        <td data-formula="=CONTAR.SI(rango_generos, \"Entretenimiento\")">20</td>
+                        <td data-formula="=20/50 (Frecuencia Absoluta / Total de casos)">0.40</td>
+                        <td data-formula="=0.40*100 (Frecuencia Relativa * 100)">40%</td>
+                    </tr>
+                    <tr>
+                        <td>Educativo</td>
+                        <td data-formula="=CONTAR.SI(rango_generos, \"Educativo\")">10</td>
+                        <td data-formula="=10/50 (Frecuencia Absoluta / Total de casos)">0.20</td>
+                        <td data-formula="=0.20*100 (Frecuencia Relativa * 100)">20%</td>
+                    </tr>
+                    <tr>
+                        <td>Opiniones</td>
+                        <td data-formula="=CONTAR.SI(rango_generos, \"Opiniones\")">5</td>
+                        <td data-formula="=5/50 (Frecuencia Absoluta / Total de casos)">0.10</td>
+                        <td data-formula="=0.10*100 (Frecuencia Relativa * 100)">10%</td>
+                    </tr>
+                    <tr class="table-secondary fw-bold">
+                        <td>Total</td>
+                        <td data-formula="=SUMA(B14:B17) (Suma de frecuencias absolutas)">50</td>
+                        <td data-formula="=SUMA(C14:C17) (Suma de frecuencias relativas)">1.00</td>
+                        <td data-formula="=SUMA(D14:D17) (Suma de porcentajes)">100%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Gráfico de Género -->
+        <div class="chart-container">
+            <canvas id="generoChart"></canvas>
+        </div>
+        
+        <div class="interpretation">
+            <h5>Interpretación:</h5>
+            <p>El género de Entretenimiento es el más predominante, representando el 40% de los contenidos analizados. Le siguen las Noticias con un 30%, el contenido Educativo con un 20% y las Opiniones con un 10%.</p>
+        </div>
+        
+        <!-- Sección 2: Variables Cuantitativas -->
+        <h2>2. Análisis de Variables Cuantitativas</h2>
+        
+        <!-- 2.1 Alcance -->
+        <h3>2.1 Alcance (miles de personas)</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Intervalo</th>
+                        <th>Marca de Clase</th>
+                        <th>Frecuencia Absoluta</th>
+                        <th>Frecuencia Acumulada</th>
+                        <th>Frecuencia Relativa</th>
+                        <th>Frec. Rel. Acumulada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1 - 200</td>
+                        <td data-formula="=(1+200)/2 (Límite inferior + Límite superior)/2">100.5</td>
+                        <td data-formula="=FRECUENCIA(rango_alcance, {200})">15</td>
+                        <td data-formula="=15 (Primer intervalo)">15</td>
+                        <td data-formula="=15/50 (Frecuencia Absoluta / Total de casos)">0.30</td>
+                        <td data-formula="=0.30 (Igual a la Frecuencia Relativa del primer intervalo)">0.30</td>
+                    </tr>
+                    <tr>
+                        <td>201 - 400</td>
+                        <td data-formula="=(201+400)/2 (Límite inferior + Límite superior)/2">300.5</td>
+                        <td data-formula="=FRECUENCIA(rango_alcance, {400})-FRECUENCIA(rango_alcance, {200})">12</td>
+                        <td data-formula="=15+12 (Frec. Acum. anterior + Frec. Abs. actual)">27</td>
+                        <td data-formula="=12/50 (Frecuencia Absoluta / Total de casos)">0.24</td>
+                        <td data-formula="=0.30+0.24 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">0.54</td>
+                    </tr>
+                    <tr>
+                        <td>401 - 600</td>
+                        <td data-formula="=(401+600)/2 (Límite inferior + Límite superior)/2">500.5</td>
+                        <td data-formula="=FRECUENCIA(rango_alcance, {600})-FRECUENCIA(rango_alcance, {400})">10</td>
+                        <td data-formula="=27+10 (Frec. Acum. anterior + Frec. Abs. actual)">37</td>
+                        <td data-formula="=10/50 (Frecuencia Absoluta / Total de casos)">0.20</td>
+                        <td data-formula="=0.54+0.20 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">0.74</td>
+                    </tr>
+                    <tr>
+                        <td>601 - 800</td>
+                        <td data-formula="=(601+800)/2 (Límite inferior + Límite superior)/2">700.5</td>
+                        <td data-formula="=FRECUENCIA(rango_alcance, {800})-FRECUENCIA(rango_alcance, {600})">8</td>
+                        <td data-formula="=37+8 (Frec. Acum. anterior + Frec. Abs. actual)">45</td>
+                        <td data-formula="=8/50 (Frecuencia Absoluta / Total de casos)">0.16</td>
+                        <td data-formula="=0.74+0.16 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">0.90</td>
+                    </tr>
+                    <tr>
+                        <td>801 - 1000</td>
+                        <td data-formula="=(801+1000)/2 (Límite inferior + Límite superior)/2">900.5</td>
+                        <td data-formula="=FRECUENCIA(rango_alcance, {1000})-FRECUENCIA(rango_alcance, {800})">5</td>
+                        <td data-formula="=45+5 (Frec. Acum. anterior + Frec. Abs. actual)">50</td>
+                        <td data-formula="=5/50 (Frecuencia Absoluta / Total de casos)">0.10</td>
+                        <td data-formula="=0.90+0.10 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">1.00</td>
+                    </tr>
+                    <tr class="table-secondary fw-bold">
+                        <td>Total</td>
+                        <td>-</td>
+                        <td>50</td>
+                        <td>-</td>
+                        <td>1.00</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Gráficos de Alcance -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Histograma de Frecuencias</h4>
+                    <canvas id="alcanceHistograma"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Polígono de Frecuencias</h4>
+                    <canvas id="alcancePoligono"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="interpretation">
+            <h5>Interpretación:</h5>
+            <p>El 54% de los contenidos tienen un alcance de hasta 400,000 personas, lo que indica una concentración en rangos medios-bajos de audiencia. Solo el 10% de los contenidos superan las 800,000 personas alcanzadas.</p>
+        </div>
+        
+        <!-- 2.2 Duración -->
+        <h3>2.2 Duración (minutos)</h3>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Intervalo</th>
+                        <th>Marca de Clase</th>
+                        <th>Frecuencia Absoluta</th>
+                        <th>Frecuencia Acumulada</th>
+                        <th>Frecuencia Relativa</th>
+                        <th>Frec. Rel. Acumulada</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1 - 30</td>
+                        <td data-formula="=(1+30)/2 (Límite inferior + Límite superior)/2">15.5</td>
+                        <td data-formula="=FRECUENCIA(rango_duracion, {30})">18</td>
+                        <td data-formula="=18 (Primer intervalo)">18</td>
+                        <td data-formula="=18/50 (Frecuencia Absoluta / Total de casos)">0.36</td>
+                        <td data-formula="=0.36 (Igual a la Frecuencia Relativa del primer intervalo)">0.36</td>
+                    </tr>
+                    <tr>
+                        <td>31 - 60</td>
+                        <td data-formula="=(31+60)/2 (Límite inferior + Límite superior)/2">45.5</td>
+                        <td data-formula="=FRECUENCIA(rango_duracion, {60})-FRECUENCIA(rango_duracion, {30})">15</td>
+                        <td data-formula="=18+15 (Frec. Acum. anterior + Frec. Abs. actual)">33</td>
+                        <td data-formula="=15/50 (Frecuencia Absoluta / Total de casos)">0.30</td>
+                        <td data-formula="=0.36+0.30 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">0.66</td>
+                    </tr>
+                    <tr>
+                        <td>61 - 90</td>
+                        <td data-formula="=(61+90)/2 (Límite inferior + Límite superior)/2">75.5</td>
+                        <td data-formula="=FRECUENCIA(rango_duracion, {90})-FRECUENCIA(rango_duracion, {60})">10</td>
+                        <td data-formula="=33+10 (Frec. Acum. anterior + Frec. Abs. actual)">43</td>
+                        <td data-formula="=10/50 (Frecuencia Absoluta / Total de casos)">0.20</td>
+                        <td data-formula="=0.66+0.20 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">0.86</td>
+                    </tr>
+                    <tr>
+                        <td>91 - 120</td>
+                        <td data-formula="=(91+120)/2 (Límite inferior + Límite superior)/2">105.5</td>
+                        <td data-formula="=FRECUENCIA(rango_duracion, {120})-FRECUENCIA(rango_duracion, {90})">7</td>
+                        <td data-formula="=43+7 (Frec. Acum. anterior + Frec. Abs. actual)">50</td>
+                        <td data-formula="=7/50 (Frecuencia Absoluta / Total de casos)">0.14</td>
+                        <td data-formula="=0.86+0.14 (Frec. Rel. Acum. anterior + Frec. Rel. actual)">1.00</td>
+                    </tr>
+                    <tr class="table-secondary fw-bold">
+                        <td>Total</td>
+                        <td>-</td>
+                        <td>50</td>
+                        <td>-</td>
+                        <td>1.00</td>
+                        <td>-</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <!-- Gráficos de Duración -->
+        <div class="row">
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Histograma de Frecuencias</h4>
+                    <canvas id="duracionHistograma"></canvas>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="chart-container">
+                    <h4>Polígono de Frecuencias</h4>
+                    <canvas id="duracionPoligono"></canvas>
+                </div>
+            </div>
+        </div>
+        
+        <div class="interpretation">
+            <h5>Interpretación:</h5>
+            <p>El 66% de los contenidos tienen una duración de hasta 60 minutos, lo que sugiere una preferencia por formatos cortos y medios. Los contenidos más extensos (más de 90 minutos) representan solo el 14% del total analizado.</p>
+        </div>
+        
+        <!-- Sección 3: Conclusiones -->
+        <h2>3. Conclusiones Generales</h2>
+        <div class="interpretation">
+            <h5>Hallazgos Principales:</h5>
+            <ul>
+                <li>Los canales digitales (Redes Sociales) y tradicionales (Televisión) comparten la mayor participación en la distribución de contenidos.</li>
+                <li>El entretenimiento es el género predominante, representando el 40% de la muestra.</li>
+                <li>Existe una correlación entre la duración del contenido y su alcance, siendo los formatos más cortos los que logran mayor cobertura.</li>
+                <li>La mayoría de los contenidos se concentran en rangos medios de duración (1-60 minutos) y alcance (hasta 400,000 personas).</li>
+            </ul>
+            
+            <h5 class="mt-4">Recomendaciones:</h5>
+            <ul>
+                <li>Considerar la producción de más contenido en formatos cortos para redes sociales, que muestran buen rendimiento en términos de alcance.</li>
+                <li>Explorar oportunidades en el género de opinión, que actualmente tiene menor representación pero podría ofrecer valor diferenciado.</li>
+                <li>Realizar un análisis más profundo de la relación entre duración del contenido y tasa de retención de audiencia.</li>
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <div id="formulaTooltip" class="formula-tooltip"></div>
+    <script>
+        // Mostrar tooltip con fórmula al hacer clic en celdas
+        document.addEventListener('DOMContentLoaded', function() {
+            const tooltip = document.getElementById('formulaTooltip');
+            
+            // Función para mostrar el tooltip
+            function showTooltip(event, formula) {
+                if (!formula) return;
+                
+                tooltip.textContent = formula;
+                tooltip.style.display = 'block';
+                
+                // Posicionar el tooltip
+                const rect = event.target.getBoundingClientRect();
+                tooltip.style.left = `${rect.left + window.scrollX}px`;
+                tooltip.style.top = `${rect.bottom + window.scrollY + 5}px`;
+                
+                // Ocultar al hacer clic en cualquier lugar
+                const hideTooltip = () => {
+                    tooltip.style.display = 'none';
+                    document.removeEventListener('click', hideTooltip);
+                };
+                
+                setTimeout(() => {
+                    document.addEventListener('click', hideTooltip, { once: true });
+                }, 0);
+            }
+            
+            // Agregar eventos a las celdas con fórmulas
+            document.querySelectorAll('[data-formula]').forEach(cell => {
+                cell.classList.add('formula-cell');
+                cell.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    showTooltip(e, cell.getAttribute('data-formula'));
+                });
+            });
+        });
+        // Gráfico de Tipo de Medio
+        const tipoMedioCtx = document.getElementById('tipoMedioChart').getContext('2d');
+        new Chart(tipoMedioCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Televisión', 'Radio', 'Redes Sociales', 'Prensa Escrita'],
+                datasets: [{
+                    label: 'Frecuencia',
+                    data: [15, 10, 15, 10],
+                    backgroundColor: [
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(26, 188, 156, 0.7)',
+                        'rgba(241, 196, 15, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(155, 89, 182, 1)',
+                        'rgba(26, 188, 156, 1)',
+                        'rgba(241, 196, 15, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribución por Tipo de Medio',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Cantidad de Piezas'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráfico de Género
+        const generoCtx = document.getElementById('generoChart').getContext('2d');
+        new Chart(generoCtx, {
+            type: 'pie',
+            data: {
+                labels: ['Noticias', 'Entretenimiento', 'Educativo', 'Opiniones'],
+                datasets: [{
+                    data: [15, 20, 10, 5],
+                    backgroundColor: [
+                        'rgba(52, 152, 219, 0.7)',
+                        'rgba(46, 204, 113, 0.7)',
+                        'rgba(155, 89, 182, 0.7)',
+                        'rgba(241, 196, 15, 0.7)'
+                    ],
+                    borderColor: [
+                        'rgba(52, 152, 219, 1)',
+                        'rgba(46, 204, 113, 1)',
+                        'rgba(155, 89, 182, 1)',
+                        'rgba(241, 196, 15, 1)'
+                    ],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribución por Género de Contenido',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+
+        // Gráficos de Alcance
+        const alcanceLabels = ['1-200', '201-400', '401-600', '601-800', '801-1000'];
+        const alcanceData = [15, 12, 10, 8, 5];
+        
+        // Histograma de Alcance
+        new Chart(document.getElementById('alcanceHistograma').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: alcanceLabels,
+                datasets: [{
+                    label: 'Frecuencia',
+                    data: alcanceData,
+                    backgroundColor: 'rgba(52, 152, 219, 0.7)',
+                    borderColor: 'rgba(52, 152, 219, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribución de Alcance',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Frecuencia'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Alcance (miles de personas)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Polígono de Frecuencia de Alcance
+        new Chart(document.getElementById('alcancePoligono').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: alcanceLabels,
+                datasets: [{
+                    label: 'Frecuencia',
+                    data: alcanceData,
+                    borderColor: 'rgba(231, 76, 60, 1)',
+                    backgroundColor: 'rgba(231, 76, 60, 0.1)',
+                    tension: 0.3,
+                    fill: true,
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(231, 76, 60, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Polígono de Frecuencia - Alcance',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Frecuencia'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Alcance (miles de personas)'
+                        }
+                    }
+                }
+            }
+        });
+
+        // Gráficos de Duración
+        const duracionLabels = ['1-30', '31-60', '61-90', '91-120'];
+        const duracionData = [18, 15, 10, 7];
+        
+        // Histograma de Duración
+        new Chart(document.getElementById('duracionHistograma').getContext('2d'), {
+            type: 'bar',
+            data: {
+                labels: duracionLabels,
+                datasets: [{
+                    label: 'Frecuencia',
+                    data: duracionData,
+                    backgroundColor: 'rgba(46, 204, 113, 0.7)',
+                    borderColor: 'rgba(46, 204, 113, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Distribución de Duración',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Frecuencia'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Duración (minutos)'
+                        }
+                    }
+                }
+            }
+        });
+        
+        // Polígono de Frecuencia de Duración
+        new Chart(document.getElementById('duracionPoligono').getContext('2d'), {
+            type: 'line',
+            data: {
+                labels: duracionLabels,
+                datasets: [{
+                    label: 'Frecuencia',
+                    data: duracionData,
+                    borderColor: 'rgba(155, 89, 182, 1)',
+                    backgroundColor: 'rgba(155, 89, 182, 0.1)',
+                    tension: 0.3,
+                    fill: true,
+                    borderWidth: 2,
+                    pointBackgroundColor: 'rgba(155, 89, 182, 1)'
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Polígono de Frecuencia - Duración',
+                        font: { size: 16 }
+                    },
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Frecuencia'
+                        },
+                        ticks: {
+                            stepSize: 1
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Duración (minutos)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
